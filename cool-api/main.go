@@ -24,8 +24,38 @@ func getCoolItems(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, coolItems)
 }
 
+func postCoolItems(c *gin.Context) {
+	var newCoolItem cool
+
+	// Call BindJSON to bind the received JSON to newCoolItem.
+	if err := c.BindJSON(&newCoolItem); err != nil {
+		return
+	}
+
+	// Add the new item to the slice.
+	coolItems = append(coolItems, newCoolItem)
+	c.IndentedJSON(http.StatusCreated, newCoolItem)
+}
+
+func getCoolItemByID(c *gin.Context) {
+	id := c.Param("id")
+
+	for _, a := range coolItems {
+		if a.ID == id {
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "item not found"})
+}
+
 func main() {
 	router := gin.Default()
+
 	router.GET("/items", getCoolItems)
+	router.GET("/items/:id", getCoolItemByID)
+
+	router.POST("/items", postCoolItems)
+
 	router.Run("localhost:8080")
 }
