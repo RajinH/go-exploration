@@ -1,10 +1,16 @@
-# go-exploration
+# Go Exploration
 
-Just a sandbox containing go lang projects for learning purposes :)
+A collection of basic Golang projects which serves as a way to showcase my learning.
 
 ## Projects
 
-- RESTful API with Go
+- Server that provides a simple REST API with multiple endpoints with the following HTTP methods:
+
+  - `GET`
+  - `POST`
+  - `PUT`
+
+- A lightweight Client for the Server packaged as a cli application
 
 ## Author
 
